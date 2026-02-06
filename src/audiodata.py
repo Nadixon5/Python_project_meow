@@ -1,5 +1,6 @@
 import librosa
 import numpy as np
+import matplotlib.pyplot as plt
 
 class AudioData:
     audio_file_path: str
@@ -29,4 +30,9 @@ class AudioData:
 
 
     def show_chart(self):
-        return
+        plt.figure()
+        plt.plot(self.data_array)
+        plt.xlabel("Sample")
+        plt.ylabel("Amplitude")
+        plt.title("Soundwave")
+        plt.show()

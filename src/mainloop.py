@@ -8,6 +8,7 @@ def mainloop_fun():
     print("Sample rate:", loaded_data.samplerate)
     print("Próbki:", loaded_data.data_array)
     print("Długość:", len(loaded_data.data_array))
+    loaded_data.draw_tone()
     while True:
         print("MEOW")
         print("KOKO")
