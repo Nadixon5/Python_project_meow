@@ -9,6 +9,7 @@ def ask_path_filedialog():
 
     return sel_path
 
+
 #sło(w)(n)ik
 def ask_settings_type():
     returns_dict = {#dict-dictionary!
@@ -21,11 +22,11 @@ def ask_settings_type():
 
     while True:
         print("Choose settings type (type 'q' to quit):\n"
-                "c - Show data on chart\n"
-                "s - Show data by means of spectrogram\n"
-                "l - Low-pass filter\n"
-                "h - High-pass filter\n"
-                "f - Show data by means of fast fourier transform\\n>> ", end="")
+              "c - Show data on chart\n"
+              "s - Show data by means of spectrogram\n"
+              "l - Low-pass filter\n"
+              "h - High-pass filter\n"
+              "f - Show data by means of fast fourier transform\n>> ", end="")
         asker = input().strip().lower() #strip - zbędne spacje usuwa, lower - zamienia duże litery na małe
 
         if asker not in returns_dict:
