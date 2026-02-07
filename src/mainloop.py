@@ -8,9 +8,25 @@ def mainloop_fun():
     print("Sample rate:", loaded_data.samplerate)
     print("Próbki:     ", loaded_data.data_array)
     print("Długość:    ", len(loaded_data.data_array))
-    loaded_data.show_chart()
+    print()
+    # loaded_data.show_chart()
     while True:
         asker = ask_main_menu()
-        print("MEOW")
-        print("KOKO")
-        break
+
+        if asker == "chart":
+            loaded_data.show_chart()
+
+        elif asker == "spectrogram":
+            pass
+
+        elif asker == "low-pass_filter":
+            pass
+
+        elif asker == "high-pass_filter":
+            pass
+
+        elif asker == "fast_fourier_transform":
+            pass
+
+        elif asker == "quit":
+            return
