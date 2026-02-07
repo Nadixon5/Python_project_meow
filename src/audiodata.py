@@ -25,7 +25,7 @@ class AudioData:
         return
 
 
-    def shpow_spectogram(self):
+    def show_spectrogram(self):
         return
 
 

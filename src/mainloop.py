@@ -3,6 +3,10 @@ from src.audiodata import AudioData
 
 def mainloop_fun():
     audio_file_path = ask_path_filedialog()
+    if not audio_file_path:
+        print("No file has been chosen :(\n")
+        return
+
     loaded_data = AudioData(audio_file_path)
     print("ŚCIEŻKA    :", loaded_data.audio_file_path)
     print("Sample rate:", loaded_data.samplerate)
