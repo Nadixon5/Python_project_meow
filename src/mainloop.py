@@ -1,4 +1,4 @@
-from src.askers import ask_path_filedialog
+from src.askers import ask_path_filedialog, ask_main_menu
 from src.audiodata import AudioData
 
 def mainloop_fun():
@@ -10,6 +10,7 @@ def mainloop_fun():
     print("Długość:    ", len(loaded_data.data_array))
     loaded_data.show_chart()
     while True:
+        asker = ask_main_menu()
         print("MEOW")
         print("KOKO")
         break

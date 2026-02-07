@@ -11,7 +11,7 @@ def ask_path_filedialog():
 
 
 #sło(w)(n)ik
-def ask_settings_type():
+def ask_main_menu():
     returns_dict = {#dict-dictionary!
         "c": "chart",
         "s": "spectrogram",
