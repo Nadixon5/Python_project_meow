@@ -19,9 +19,11 @@ def mainloop_fun():
 
         if asker == "chart":
             loaded_data.show_chart()
+            print("\n")
 
         elif asker == "spectrogram":
-            pass
+            loaded_data.show_spectrogram()
+            print("\n")
 
         elif asker == "low-pass_filter":
             pass

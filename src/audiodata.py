@@ -1,6 +1,18 @@
 import librosa
 import numpy as np
 import matplotlib.pyplot as plt
+import scipy
+
+plt.rcParams.update({
+    "font.size": 14,
+    "axes.titlesize": 18,
+    "axes.labelsize": 16,
+    "xtick.labelsize": 14,
+    "ytick.labelsize": 14,
+    "legend.fontsize": 14
+})
+
+
 
 class AudioData:
     audio_file_path: str
@@ -26,6 +38,25 @@ class AudioData:
 
 
     def show_spectrogram(self):
+        # Dane zostały spreparowane do spektrogramu za pomocą scipy, a 
+        # zobrazowane na wykresie używając matplotliba. Dzieje się tak, 
+        # ponieważ plt.specgram nie radzi sobie z 0, z których próbuje 
+        # obliczyć logarytm o podstawie 10.
+        f, t, Sxx = scipy.signal.spectrogram(
+            self.data_array,
+            fs=48000,
+            nperseg=1024,
+            noverlap=128,
+            scaling='density')
+        Sxx_db = 10 * np.log10(Sxx + 1e-12)
+
+        plt.figure(figsize=(8, 4))
+        plt.pcolormesh(t, f, Sxx_db, shading='auto')
+        plt.ylabel("Frequency [Hz]")
+        plt.xlabel("Time [s]")
+        plt.colorbar(label="Power (dB)")
+        plt.tight_layout()
+        plt.show()
         return
 
 
