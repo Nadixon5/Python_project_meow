@@ -42,12 +42,18 @@ class AudioData:
         # zobrazowane na wykresie używając matplotliba. Dzieje się tak, 
         # ponieważ plt.specgram nie radzi sobie z 0, z których próbuje 
         # obliczyć logarytm o podstawie 10.
+        nperseg = 1024
+
         f, t, Sxx = scipy.signal.spectrogram(
             self.data_array,
-            fs=48000,
-            nperseg=1024,
-            noverlap=128,
-            scaling='density')
+            fs = self.samplerate,
+            nperseg = nperseg,        # Każda pionowa kreska/wartość/nie wiem
+                                      # spektrogramu wynosi nperseg próbek.
+                                      # Im większe - mniejsza dokładność spek.
+                                      # Im mniejsze - większa dokładność spek.
+            noverlap = nperseg // 2,  # Określa zachodzenie na siebie pionowych
+                                      # wartości. Im więcej tym gładsze
+            scaling = 'density')
         Sxx_db = 10 * np.log10(Sxx + 1e-12)
 
         plt.figure(figsize=(8, 4))
