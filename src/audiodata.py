@@ -41,7 +41,8 @@ class AudioData:
         nyq = 0.5 * self.samplerate
         norm_cutoff = cutoff / nyq
         b, a = butter(order, norm_cutoff, btype='low')
-        self.data_array = filtfilt(b, a, self.data_array)
+        self.data_array[0] = filtfilt(b, a, self.data_array[0])
+        self.data_array[1] = filtfilt(b, a, self.data_array[1])
 
 
     def apply_hipass(self):
@@ -112,6 +113,7 @@ class AudioData:
     def save_audio(self):
         currtime = datetime.now()
         currtime_string = currtime.strftime("%Y-%m-%d_%H:%M:%S")
+
         filename = Path(self.audio_file_path).stem
         project_path = Path(__file__).resolve().parent.parent
         os.chdir(project_path)
