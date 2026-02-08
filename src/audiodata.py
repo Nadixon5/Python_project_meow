@@ -5,6 +5,7 @@ import soundfile as sf
 from datetime import datetime
 from pathlib import Path
 import scipy
+from scipy.signal import butter, filtfilt
 import os
 
 plt.rcParams.update({
@@ -34,7 +35,13 @@ class AudioData:
 
 
     def apply_lowpass(self):
-        return
+        order=5
+        cutoff=3000
+
+        nyq = 0.5 * self.samplerate
+        norm_cutoff = cutoff / nyq
+        b, a = butter(order, norm_cutoff, btype='low')
+        self.data_array = filtfilt(b, a, self.data_array)
 
 
     def apply_hipass(self):
