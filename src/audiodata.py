@@ -26,7 +26,7 @@ class AudioData:
     #inicjlizacja
     def __init__(self, audio_file_path):
         self.audio_file_path = audio_file_path
-        self.data_array, self.samplerate = librosa.load(audio_file_path, sr=None, mono=True)
+        self.data_array, self.samplerate = librosa.load(audio_file_path, sr=None, mono=False)
 
 
     def fast_fourier(self):
@@ -88,7 +88,7 @@ class AudioData:
 
         sf.write(
             f"output/{filename}_{currtime_string}.flac",
-            self.data_array,
+            self.data_array.T,
             self.samplerate,
             format="FLAC",
             subtype="PCM_16") # or PCM_24 or PCM_32
