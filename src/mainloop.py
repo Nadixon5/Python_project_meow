@@ -26,16 +26,20 @@ def mainloop_fun():
             print("\n")
 
         elif asker == "low-pass_filter":
-            pass
+            loaded_data.apply_lowpass()
+            print("\n")
 
         elif asker == "high-pass_filter":
-            pass
+            loaded_data.apply_hipass()
+            print("\n")
 
         elif asker == "fast_fourier_transform":
-            pass
+            loaded_data.fast_fourier()
+            print("\n")
 
         elif asker == "save_as_file":
-            pass
+            loaded_data.save_audio()
+            print("\n")
 
         elif asker == "quit":
             return
