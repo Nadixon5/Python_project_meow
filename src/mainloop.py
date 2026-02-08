@@ -34,5 +34,8 @@ def mainloop_fun():
         elif asker == "fast_fourier_transform":
             pass
 
+        elif asker == "save_as_file":
+            pass
+
         elif asker == "quit":
             return

@@ -18,6 +18,7 @@ def ask_main_menu():
         "l": "low-pass_filter",
         "h": "high-pass_filter",
         "f": "fast_fourier_transform",
+        "v": "save_as_file",
         "q": "quit"}
 
     while True:
@@ -26,7 +27,8 @@ def ask_main_menu():
               "s - Show data by means of spectrogram\n"
               "l - Low-pass filter\n"
               "h - High-pass filter\n"
-              "f - Show data by means of fast fourier transform\n>> ", end="")
+              "f - Show data by means of fast fourier transform\n"
+              "v - Save as audio file\n>> ", end="")
         asker = input().strip().lower() #strip - zbędne spacje usuwa, lower - zamienia duże litery na małe
 
         if asker not in returns_dict:
