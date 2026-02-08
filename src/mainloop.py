@@ -8,13 +8,12 @@ def mainloop_fun():
         return
 
     loaded_data = AudioData(audio_file_path)
-    print("ŚCIEŻKA    :", loaded_data.audio_file_path)
-    print("Sample rate:", loaded_data.samplerate)
-    print("Próbki:     ", loaded_data.data_array)
-    print("Długość:    ", len(loaded_data.data_array))
-    print()
-    # loaded_data.show_chart()
+
     while True:
+        print("ŚCIEŻKA    :", loaded_data.audio_file_path)
+        print("Sample rate:", loaded_data.samplerate)
+        print("Długość:    ", len(loaded_data.data_array[0]))
+        print()
         asker = ask_main_menu()
 
         if asker == "chart":
