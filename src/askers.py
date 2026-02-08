@@ -5,7 +5,7 @@ def ask_path_filedialog():
     sel_path = filedialog.askopenfilename(
         title="Choose a txt or csv file", #tekst na górze
         filetypes=[       #dozwolone rodzaje plików
-            ("MP3 or FLAC files", "*.mp3 *.flac")])
+            ("Audio files", "*.mp3 *.flac *.ogg *.wav")])
 
     return sel_path
 
