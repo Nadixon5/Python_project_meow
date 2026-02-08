@@ -5,7 +5,7 @@ import soundfile as sf
 from datetime import datetime
 from pathlib import Path
 import scipy
-from scipy.signal import butter, filtfilt
+from scipy.signal import butter, firwin, filtfilt
 import os
 
 plt.rcParams.update({
@@ -35,7 +35,7 @@ class AudioData:
         return
 
 
-    def apply_lowpass(self):
+    def apply_lowpass_butterworth(self):
         order=5
         cutoff=3000
 
@@ -46,8 +46,15 @@ class AudioData:
         self.data_array[1] = filtfilt(b, a, self.data_array[1])
 
 
-    def apply_hipass(self):
-        return
+    def apply_hipass_butterworth(self):
+        order=5
+        cutoff=3000
+
+        nyq = 0.5 * self.samplerate
+        norm_cutoff = cutoff / nyq
+        b, a = butter(order, norm_cutoff, btype='high')
+        self.data_array[0] = filtfilt(b, a, self.data_array[0])
+        self.data_array[1] = filtfilt(b, a, self.data_array[1])
 
 
     def show_spectrogram(self):

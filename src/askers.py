@@ -15,9 +15,8 @@ def ask_main_menu():
     returns_dict = {#dict-dictionary!
         "c": "chart",
         "s": "spectrogram",
-        "l": "low-pass_filter",
-        "h": "high-pass_filter",
-        "f": "fast_fourier_transform",
+        "f": "filters",
+        "t": "fast_fourier_transform",
         "v": "save_as_file",
         "q": "quit"}
 
@@ -25,10 +24,32 @@ def ask_main_menu():
         print("Choose settings type (type 'q' to quit):\n"
               "c - Show data on chart\n"
               "s - Show data by means of spectrogram\n"
-              "l - Low-pass filter\n"
-              "h - High-pass filter\n"
-              "f - Show data by means of fast fourier transform\n"
+              "f - Filters...\n"
+              "t - Show data by means of fast fourier transform\n"
               "v - Save as audio file\n>> ", end="")
+        asker = input().strip().lower() #strip - zbędne spacje usuwa, lower - zamienia duże litery na małe
+
+        if asker not in returns_dict:
+            print("Invalid input :(\n")
+        else:
+            return returns_dict[asker]
+
+
+def ask_filters():
+    # FIR - Finite Impulse Response
+    returns_dict = {
+        "lb": "low_pass_butterworth",
+        "lf": "low_pass_fir",
+        "rb": "high_pass_butterworth",
+        "rf": "high_pass_fir",
+        "r":  "return"}
+
+    while True:
+        print("Choose filter to apply (type 'r' to return):\n"
+              "lb - Apply low-pass Butterworth filter\n"
+              "lf - Apply low-pass linear FIR filter\n"
+              "rb - Apply high-pass Butterworth filter\n"
+              "rf - Apply high-pass linear FIR filter\n>> ", end="")
         asker = input().strip().lower() #strip - zbędne spacje usuwa, lower - zamienia duże litery na małe
 
         if asker not in returns_dict:
