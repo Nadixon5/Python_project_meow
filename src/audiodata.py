@@ -5,6 +5,7 @@ import soundfile as sf
 from datetime import datetime
 from pathlib import Path
 import scipy
+import os
 
 plt.rcParams.update({
     "font.size": 14,
@@ -82,9 +83,11 @@ class AudioData:
         currtime = datetime.now()
         currtime_string = currtime.strftime("%Y-%m-%d_%H:%M:%S")
         filename = Path(self.audio_file_path).stem
+        project_path = Path(__file__).resolve().parent.parent
+        os.chdir(project_path)
 
         sf.write(
-            f"output/{filename}{currtime_string}.flac",
+            f"output/{filename}_{currtime_string}.flac",
             self.data_array,
             self.samplerate,
             format="FLAC",
