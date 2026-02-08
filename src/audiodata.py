@@ -20,13 +20,14 @@ plt.rcParams.update({
 
 
 class AudioData:
-    audio_file_path: str
-    data_array: np.ndarray
-    samplerate: int
+    audio_file_path: str #ścieżka do pliku
+    data_array: np.ndarray #numpy.klasa(lepszy array)
+    samplerate: int 
 
-    #inicjlizacja
+    #inicjlizacja (kiedy tworzysz instancję klasy) trzeba.
     def __init__(self, audio_file_path):
-        self.audio_file_path = audio_file_path
+        self.audio_file_path = audio_file_path#argument
+        #ładowanie ze ścieżki zmiennych ładowanych z pliku
         self.data_array, self.samplerate = librosa.load(audio_file_path, sr=None, mono=False)
 
 
