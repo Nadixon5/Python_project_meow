@@ -36,25 +36,57 @@ class AudioData:
 
 
     def apply_lowpass_butterworth(self):
-        order=5
-        cutoff=3000
-
+        order = 5
+        cutoff = 3000
         nyq = 0.5 * self.samplerate
+
         norm_cutoff = cutoff / nyq
         b, a = butter(order, norm_cutoff, btype='low')
+
         self.data_array[0] = filtfilt(b, a, self.data_array[0])
         self.data_array[1] = filtfilt(b, a, self.data_array[1])
+
+
+    def apply_lowpass_fir(self):
+        cutoff = 3000
+        numtaps = 401
+        nyq = 0.5 * self.samplerate
+
+        taps = firwin(
+            numtaps=numtaps,
+            cutoff=cutoff / nyq,
+            window="hamming",
+            pass_zero="lowpass")
+
+        self.data_array[0] = filtfilt(taps, [1.0], self.data_array[0])
+        self.data_array[1] = filtfilt(taps, [1.0], self.data_array[1])
 
 
     def apply_hipass_butterworth(self):
         order=5
-        cutoff=3000
-
+        cutoff=200
         nyq = 0.5 * self.samplerate
+
         norm_cutoff = cutoff / nyq
         b, a = butter(order, norm_cutoff, btype='high')
+
         self.data_array[0] = filtfilt(b, a, self.data_array[0])
         self.data_array[1] = filtfilt(b, a, self.data_array[1])
+
+
+    def apply_hipass_fir(self):
+        cutoff = 200
+        numtaps = 401
+        nyq = 0.5 * self.samplerate
+
+        taps = firwin(
+            numtaps=numtaps,
+            cutoff=cutoff / nyq,
+            window="hamming",
+            pass_zero="highpass")
+
+        self.data_array[0] = filtfilt(taps, [1.0], self.data_array[0])
+        self.data_array[1] = filtfilt(taps, [1.0], self.data_array[1])
 
 
     def show_spectrogram(self):

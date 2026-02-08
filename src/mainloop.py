@@ -35,14 +35,16 @@ def mainloop_fun():
                     print("Filter successfully applied\n\n")
 
                 elif asker == "low_pass_fir":
-                    pass
+                    loaded_data.apply_lowpass_fir()
+                    print("Filter successfully applied\n\n")
 
                 elif asker == "high_pass_butterworth":
                     loaded_data.apply_hipass_butterworth()
                     print("Filter successfully applied\n\n")
 
                 elif asker == "high_pass_fir":
-                    pass
+                    loaded_data.apply_hipass_fir()
+                    print("Filter successfully applied\n\n")
 
                 elif asker == "return":
                     break
