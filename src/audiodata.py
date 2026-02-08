@@ -48,8 +48,8 @@ class AudioData:
         # obliczyć logarytm o podstawie 10.
         nperseg = 1024
 
-        f, t, Sxx = scipy.signal.spectrogram(
-            self.data_array,
+        freq_bins_l, time_bins_l, left_spectr = scipy.signal.spectrogram(
+            self.data_array[0],
             fs = self.samplerate,
             nperseg = nperseg,        # Każda pionowa kreska/wartość/nie wiem
                                       # spektrogramu wynosi nperseg próbek.
@@ -58,24 +58,47 @@ class AudioData:
             noverlap = nperseg // 2,  # Określa zachodzenie na siebie pionowych
                                       # wartości. Im więcej tym gładsze
             scaling = 'density')
-        Sxx_db = 10 * np.log10(Sxx + 1e-12)
+        freq_bins_r, time_bins_r, right_spectr = scipy.signal.spectrogram(
+            self.data_array[1],
+            fs = self.samplerate,
+            nperseg = nperseg,
+            noverlap = nperseg // 2,
+            scaling = 'density')
 
-        plt.figure(figsize=(8, 4))
-        plt.pcolormesh(t, f, Sxx_db, shading='auto')
-        plt.ylabel("Frequency [Hz]")
-        plt.xlabel("Time [s]")
-        plt.colorbar(label="Power (dB)")
+        left_spectr_compressed  = 10 * np.log10(left_spectr + 1e-12)
+        right_spectr_compressed = 10 * np.log10(right_spectr + 1e-12)
+
+
+        fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(10, 4))
+        axes[0].pcolormesh(time_bins_l, freq_bins_l, left_spectr_compressed,  shading='auto')
+        axes[0].set_title("Left speaker")
+        axes[0].set_xlabel("Time [s]")
+        axes[0].set_ylabel("Frequency [Hz]")
+
+        axes[1].pcolormesh(time_bins_r, freq_bins_r, right_spectr_compressed, shading='auto')
+        axes[1].set_title("Right speaker")
+        axes[1].set_xlabel("Time [s]")
+        axes[1].set_ylabel("Frequency [Hz]")
+
         plt.tight_layout()
         plt.show()
         return
 
 
     def show_chart(self):
-        plt.figure()
-        plt.plot(self.data_array)
-        plt.xlabel("Sample")
-        plt.ylabel("Amplitude")
-        plt.title("Soundwave")
+        fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(10, 4))
+
+        axes[0].plot(self.data_array[0])
+        axes[0].set_title("Left speaker")
+        axes[0].set_xlabel("Sample")
+        axes[0].set_ylabel("Amplitude")
+
+        axes[1].plot(self.data_array[1])
+        axes[1].set_title("Right speaker")
+        axes[1].set_xlabel("Sample")
+        axes[1].set_ylabel("Amplitude")
+
+        plt.tight_layout()
         plt.show()
 
 
