@@ -64,8 +64,9 @@ class AudioData:
                                       # spektrogramu wynosi nperseg próbek.
                                       # Im większe - mniejsza dokładność spek.
                                       # Im mniejsze - większa dokładność spek.
-            noverlap = nperseg // 2,  # Określa zachodzenie na siebie pionowych
-                                      # wartości. Im więcej tym gładsze
+                                      # Uśrednia 1024 próbek
+            noverlap = nperseg // 2,  # Określa nakładanie się na siebie
+                                      # pionowych wartości. Im więcej tym gładsze
             scaling = 'density')
         freq_bins_r, time_bins_r, right_spectr = scipy.signal.spectrogram(
             self.data_array[1],
@@ -112,13 +113,15 @@ class AudioData:
 
 
     def save_audio(self):
+        # do plików mieć konkretny czas w nazwie (żeby inne były)
         currtime = datetime.now()
-        currtime_string = currtime.strftime("%Y-%m-%d_%H:%M:%S")
+        currtime_string = currtime.strftime("%Y-%m-%d_%H-%M-%S")
 
         filename = Path(self.audio_file_path).stem
         project_path = Path(__file__).resolve().parent.parent
-        os.chdir(project_path)
+        os.chdir(project_path) #przejście do katalogu projektu
 
+        # zapis jako plik FLAC
         sf.write(
             f"output/{filename}_{currtime_string}.flac",
             self.data_array.T,
