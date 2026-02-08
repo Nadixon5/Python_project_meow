@@ -2,6 +2,8 @@ import librosa
 import numpy as np
 import matplotlib.pyplot as plt
 import soundfile as sf
+from datetime import datetime
+from pathlib import Path
 import scipy
 
 plt.rcParams.update({
@@ -77,10 +79,13 @@ class AudioData:
 
 
     def save_audio(self):
+        currtime = datetime.now()
+        currtime_string = currtime.strftime("%Y-%m-%d_%H:%M:%S")
+        filename = Path(self.audio_file_path).stem
+
         sf.write(
-            f"output/processed.flac",
+            f"output/{filename}{currtime_string}.flac",
             self.data_array,
             self.samplerate,
             format="FLAC",
             subtype="PCM_16") # or PCM_24 or PCM_32
-        return
