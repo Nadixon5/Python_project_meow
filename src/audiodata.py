@@ -35,9 +35,24 @@ class AudioData:
         return
 
 
+    # ========================= FILTERS =========================
+    # cutoff - frequencies below cutoff pass for low-pass filters
+    # cutoff - frequencies above cutoff pass for high-pass filters
+    #
+    # nyq (Nyquist frequency) - Half the sampling rate. A digital 
+    # signal cannot represent frequencies ≥ samplerate/2.
+    #
+    # order (Butterworth)- The steepness of the transition band for filter.
+    # Higher order means sharper cutoff and better frequency separation
+    #
+    # numtaps (FIR) - The number of filter coefficients (length of 
+    # the impulse response). Higher numtaps is sharper cutoff, 
+    # narrower transition band but higher CPU cost.
+
+
     def apply_lowpass_butterworth(self):
-        order = 5
         cutoff = 3000
+        order = 5
         nyq = 0.5 * self.samplerate
 
         norm_cutoff = cutoff / nyq
@@ -63,8 +78,8 @@ class AudioData:
 
 
     def apply_hipass_butterworth(self):
-        order=5
-        cutoff=200
+        cutoff = 200
+        order = 5
         nyq = 0.5 * self.samplerate
 
         norm_cutoff = cutoff / nyq

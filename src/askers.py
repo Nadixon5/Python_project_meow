@@ -25,7 +25,7 @@ def ask_main_menu():
               "c - Show data on chart\n"
               "s - Show data by means of spectrogram\n"
               "f - Filters...\n"
-              "t - Show data by means of fast fourier transform\n"
+              "t - Show data by means of Fast Fourier Transform\n"
               "v - Save as audio file\n>> ", end="")
         asker = input().strip().lower() #strip - zbędne spacje usuwa, lower - zamienia duże litery na małe
 
