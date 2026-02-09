@@ -47,9 +47,19 @@ class AudioData:
         magnitude_r[0] /= 2
         freqs_r = np.fft.rfftfreq(N, d=1/self.samplerate)
 
-        plt.plot(freqs_l, magnitude_l)
-        plt.xlabel("Frequency (Hz)")
-        plt.ylabel("Amplitude")
+        fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(10, 4))
+
+        axes[0].plot(freqs_l, magnitude_l)
+        axes[0].set_title("Left speaker")
+        axes[0].set_xlabel("Frequency (Hz)")
+        axes[0].set_ylabel("Amplitude")
+
+        axes[1].plot(freqs_r, magnitude_l)
+        axes[1].set_title("Right speaker")
+        axes[1].set_xlabel("Frequency (Hz)")
+        axes[1].set_ylabel("Amplitude")
+
+        plt.tight_layout()
         plt.show()
 
 

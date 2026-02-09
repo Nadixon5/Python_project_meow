@@ -78,5 +78,5 @@ def mainloop_fun():
             print("File successfully saved\n\n")
 
         elif asker == "quit":
-            print("Bye bye user...")
+            print("\nBye bye user...\n\n")
             return
