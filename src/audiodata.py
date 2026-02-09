@@ -134,42 +134,48 @@ class AudioData:
         # obliczyć logarytm o podstawie 10.
         nperseg = 1024
 
-        freq_bins_l, time_bins_l, left_spectr = scipy.signal.spectrogram(
-            self.data_array[0],
-            fs = self.samplerate,
-            nperseg = nperseg,        # Każda pionowa kreska/wartość/nie wiem
-                                      # spektrogramu wynosi nperseg próbek.
-                                      # Im większe - mniejsza dokładność spek.
-                                      # Im mniejsze - większa dokładność spek.
-                                      # Uśrednia 1024 próbek
-            noverlap = nperseg // 2,  # Określa nakładanie się na siebie
-                                      # pionowych wartości. Im więcej tym gładsze
-            scaling = 'density')
-        freq_bins_r, time_bins_r, right_spectr = scipy.signal.spectrogram(
-            self.data_array[1],
-            fs = self.samplerate,
-            nperseg = nperseg,
-            noverlap = nperseg // 2,
-            scaling = 'density')
 
-        left_spectr_compressed  = 10 * np.log10(left_spectr + 1e-12)
-        right_spectr_compressed = 10 * np.log10(right_spectr + 1e-12)
+        # Dla mono
+        if self.is_mono:
+            pass
+
+        # Dla stereo
+        else:
+            freq_bins_l, time_bins_l, left_spectr = scipy.signal.spectrogram(
+                self.data_array[0],
+                fs = self.samplerate,
+                nperseg = nperseg,        # Każda pionowa kreska/wartość/nie wiem
+                                        # spektrogramu wynosi nperseg próbek.
+                                        # Im większe - mniejsza dokładność spek.
+                                        # Im mniejsze - większa dokładność spek.
+                                        # Uśrednia 1024 próbek
+                noverlap = nperseg // 2,  # Określa nakładanie się na siebie
+                                        # pionowych wartości. Im więcej tym gładsze
+                scaling = 'density')
+            freq_bins_r, time_bins_r, right_spectr = scipy.signal.spectrogram(
+                self.data_array[1],
+                fs = self.samplerate,
+                nperseg = nperseg,
+                noverlap = nperseg // 2,
+                scaling = 'density')
+
+            left_spectr_compressed  = 10 * np.log10(left_spectr + 1e-12)
+            right_spectr_compressed = 10 * np.log10(right_spectr + 1e-12)
 
 
-        fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(10, 4))
-        axes[0].pcolormesh(time_bins_l, freq_bins_l, left_spectr_compressed,  shading='auto')
-        axes[0].set_title("Left speaker")
-        axes[0].set_xlabel("Time [s]")
-        axes[0].set_ylabel("Frequency [Hz]")
+            fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(10, 4))
+            axes[0].pcolormesh(time_bins_l, freq_bins_l, left_spectr_compressed,  shading='auto')
+            axes[0].set_title("Left speaker")
+            axes[0].set_xlabel("Time [s]")
+            axes[0].set_ylabel("Frequency [Hz]")
 
-        axes[1].pcolormesh(time_bins_r, freq_bins_r, right_spectr_compressed, shading='auto')
-        axes[1].set_title("Right speaker")
-        axes[1].set_xlabel("Time [s]")
-        axes[1].set_ylabel("Frequency [Hz]")
+            axes[1].pcolormesh(time_bins_r, freq_bins_r, right_spectr_compressed, shading='auto')
+            axes[1].set_title("Right speaker")
+            axes[1].set_xlabel("Time [s]")
+            axes[1].set_ylabel("Frequency [Hz]")
 
-        plt.tight_layout()
-        plt.show()
-        return
+            plt.tight_layout()
+            plt.show()
 
 
     def show_chart(self):
