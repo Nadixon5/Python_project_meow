@@ -173,20 +173,32 @@ class AudioData:
 
 
     def show_chart(self):
-        fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(10, 4))
+        # Dla mono
+        if self.is_mono:
+            plt.figure(figsize=(8, 4))
+            plt.plot(self.data_array)
+            plt.title("Audio Signal")
+            plt.xlabel("Sample")
+            plt.ylabel("Amplitude")
+            plt.tight_layout()
+            plt.show()
 
-        axes[0].plot(self.data_array[0])
-        axes[0].set_title("Left speaker")
-        axes[0].set_xlabel("Sample")
-        axes[0].set_ylabel("Amplitude")
+        # Dla stereo
+        else:
+            fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(10, 4))
 
-        axes[1].plot(self.data_array[1])
-        axes[1].set_title("Right speaker")
-        axes[1].set_xlabel("Sample")
-        axes[1].set_ylabel("Amplitude")
+            axes[0].plot(self.data_array[0])
+            axes[0].set_title("Left speaker")
+            axes[0].set_xlabel("Sample")
+            axes[0].set_ylabel("Amplitude")
 
-        plt.tight_layout()
-        plt.show()
+            axes[1].plot(self.data_array[1])
+            axes[1].set_title("Right speaker")
+            axes[1].set_xlabel("Sample")
+            axes[1].set_ylabel("Amplitude")
+
+            plt.tight_layout()
+            plt.show()
 
 
     def save_audio(self):
