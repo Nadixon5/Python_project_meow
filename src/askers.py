@@ -56,3 +56,33 @@ def ask_filters():
             print("Invalid input :(\n")
         else:
             return returns_dict[asker]
+
+
+def ask_cutoff(filter_type):
+    default_cutoff = None
+    if filter_type == "low":
+        default_cutoff = 3000
+    elif filter_type == "high":
+        default_cutoff = 200
+
+    while True:
+        print("Pick a new cutoff value:\n"
+             f"Leave empty for default val {default_cutoff}\n"
+              "(type 'r' to return)\n>> ", end="")
+        asker = input().strip().lower()
+
+        if asker == "r":
+            return
+        elif asker == "":
+            return default_cutoff
+        elif not asker.isdigit():
+            print("Invalid value.\n\n")
+            continue
+
+        asker_num = int(asker)
+        if asker_num < 3:
+            print("Input value is too low.\n\n")
+        elif asker_num > 17000:
+            print("Input value is too high.\n\n")
+        else:
+            return asker_num
