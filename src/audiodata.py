@@ -2,6 +2,7 @@ import librosa
 import numpy as np
 import matplotlib.pyplot as plt
 import soundfile as sf
+from pydub import AudioSegment
 from datetime import datetime
 from pathlib import Path
 import scipy
@@ -196,10 +197,13 @@ class AudioData:
         project_path = Path(__file__).resolve().parent.parent
         os.chdir(project_path) #przejście do katalogu projektu
 
-        # zapis jako plik FLAC
+        # najpierw zapis tymczasowy pliku wav (bo pydub nie czyta bezpośrednio z numpy)
         sf.write(
-            f"output/{filename}_{currtime_string}.flac",
-            self.data_array.T,
-            self.samplerate,
-            format="FLAC",
-            subtype="PCM_16") # or PCM_24 or PCM_32
+            "temp.wav", 
+            self.data_array.T, 
+            self.samplerate, 
+            subtype="PCM_16")
+
+        # konwersja do mp3
+        sound = AudioSegment.from_wav("temp.wav")
+        sound.export(f"output/{filename}_{currtime_string}.mp3", format="mp3", bitrate="192k")
