@@ -1,4 +1,4 @@
-from src.askers import ask_path_filedialog, ask_main_menu, ask_filters
+from src.askers import ask_path_filedialog, ask_main_menu, ask_filters, ask_cutoff
 from src.audiodata import AudioData
 
 def mainloop_fun():
@@ -31,19 +31,39 @@ def mainloop_fun():
                 print()
 
                 if asker == "low_pass_butterworth":
-                    loaded_data.apply_lowpass_butterworth()
+                    asker_cutoff = ask_cutoff("low")
+                    if asker_cutoff == None:
+                        continue
+                    print()
+
+                    loaded_data.apply_lowpass_butterworth(asker_cutoff)
                     print("Filter successfully applied\n\n")
 
                 elif asker == "low_pass_fir":
-                    loaded_data.apply_lowpass_fir()
+                    asker_cutoff = ask_cutoff("low")
+                    if asker_cutoff == None:
+                        continue
+                    print()
+
+                    loaded_data.apply_lowpass_fir(asker_cutoff)
                     print("Filter successfully applied\n\n")
 
                 elif asker == "high_pass_butterworth":
-                    loaded_data.apply_hipass_butterworth()
+                    asker_cutoff = ask_cutoff("high")
+                    if asker_cutoff == None:
+                        continue
+                    print()
+
+                    loaded_data.apply_hipass_butterworth(asker_cutoff)
                     print("Filter successfully applied\n\n")
 
                 elif asker == "high_pass_fir":
-                    loaded_data.apply_hipass_fir()
+                    asker_cutoff = ask_cutoff("high")
+                    if asker_cutoff == None:
+                        continue
+                    print()
+
+                    loaded_data.apply_hipass_fir(asker_cutoff)
                     print("Filter successfully applied\n\n")
 
                 elif asker == "return":

@@ -47,8 +47,7 @@ class AudioData:
     # narrower transition band but higher CPU cost.
 
 
-    def apply_lowpass_butterworth(self):
-        cutoff = 3000
+    def apply_lowpass_butterworth(self, cutoff):
         order = 5
         nyq = 0.5 * self.samplerate
 
@@ -59,8 +58,7 @@ class AudioData:
         self.data_array[1] = filtfilt(b, a, self.data_array[1])
 
 
-    def apply_lowpass_fir(self):
-        cutoff = 3000
+    def apply_lowpass_fir(self, cutoff):
         numtaps = 401
         nyq = 0.5 * self.samplerate
 
@@ -74,8 +72,7 @@ class AudioData:
         self.data_array[1] = filtfilt(taps, [1.0], self.data_array[1])
 
 
-    def apply_hipass_butterworth(self):
-        cutoff = 200
+    def apply_hipass_butterworth(self, cutoff):
         order = 5
         nyq = 0.5 * self.samplerate
 
@@ -86,8 +83,7 @@ class AudioData:
         self.data_array[1] = filtfilt(b, a, self.data_array[1])
 
 
-    def apply_hipass_fir(self):
-        cutoff = 200
+    def apply_hipass_fir(self, cutoff):
         numtaps = 401
         nyq = 0.5 * self.samplerate
 
