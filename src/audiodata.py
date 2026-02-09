@@ -36,17 +36,14 @@ class AudioData:
 
 
     # ========================= FILTERS =========================
-    # cutoff - frequencies below cutoff pass for low-pass filters
-    # cutoff - frequencies above cutoff pass for high-pass filters
-    #
-    # nyq (Nyquist frequency) - Half the sampling rate. A digital 
-    # signal cannot represent frequencies ≥ samplerate/2.
+    # cutoff - frequencies below cutoff pass for low-pass filters.
+    # cutoff - frequencies above cutoff pass for high-pass filters.
     #
     # order (Butterworth)- The steepness of the transition band for filter.
-    # Higher order means sharper cutoff and better frequency separation
+    # Higher order means sharper cutoff and better frequency separation.
     #
-    # numtaps (FIR) - The number of filter coefficients (length of 
-    # the impulse response). Higher numtaps is sharper cutoff, 
+    # numtaps (FIR) - The number of filter coefficients (length of
+    # the impulse response). Higher numtaps is sharper cutoff,
     # narrower transition band but higher CPU cost.
 
 
