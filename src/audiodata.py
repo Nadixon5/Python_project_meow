@@ -32,7 +32,19 @@ class AudioData:
 
 
     def fast_fourier(self):
-        return
+        N = len(self.data_array[0])
+        window = np.hanning(N)
+
+        fft = np.fft.rfft(self.data_array[0] * window)
+        magnitude = np.abs(fft) / (N / 2)
+        magnitude[0] /= 2
+
+        freqs = np.fft.rfftfreq(N, d=1/self.samplerate)
+
+        plt.plot(freqs, magnitude)
+        plt.xlabel("Frequency (Hz)")
+        plt.ylabel("Amplitude")
+        plt.show()
 
 
     # ========================= FILTERS =========================
