@@ -35,13 +35,19 @@ class AudioData:
         N = len(self.data_array[0])
         window = np.hanning(N)
 
-        fft = np.fft.rfft(self.data_array[0] * window)
-        magnitude = np.abs(fft) / (N / 2)
-        magnitude[0] /= 2
+        # Lewy głośnik
+        fft_l = np.fft.rfft(self.data_array[0] * window)
+        magnitude_l = np.abs(fft_l) / (N / 2)
+        magnitude_l[0] /= 2
+        freqs_l = np.fft.rfftfreq(N, d=1/self.samplerate)
 
-        freqs = np.fft.rfftfreq(N, d=1/self.samplerate)
+        # Prawy głośnik
+        fft_r = np.fft.rfft(self.data_array[1] * window)
+        magnitude_r = np.abs(fft_r) / (N / 2)
+        magnitude_r[0] /= 2
+        freqs_r = np.fft.rfftfreq(N, d=1/self.samplerate)
 
-        plt.plot(freqs, magnitude)
+        plt.plot(freqs_l, magnitude_l)
         plt.xlabel("Frequency (Hz)")
         plt.ylabel("Amplitude")
         plt.show()
